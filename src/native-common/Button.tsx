@@ -376,6 +376,7 @@ export class Button extends ButtonBase {
                 toValue: value,
                 duration: duration,
                 easing: Animated.Easing.InOut(),
+                useNativeDriver: true
             },
         ).start();
     }
