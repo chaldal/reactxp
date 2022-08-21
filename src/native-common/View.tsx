@@ -440,6 +440,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
                 toValue: value,
                 duration: duration,
                 easing: Animated.Easing.InOut(),
+                useNativeDriver: true
             },
         ).start();
     }

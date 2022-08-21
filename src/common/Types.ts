@@ -1091,7 +1091,7 @@ export namespace Animated {
     }
 
     export interface AnimationConfig {
-        useNativeDriver?: boolean;
+        useNativeDriver: boolean;
         isInteraction?: boolean;
     }
 
