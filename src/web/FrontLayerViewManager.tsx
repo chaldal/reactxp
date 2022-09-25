@@ -8,8 +8,8 @@
  */
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
+import { createRoot } from 'react-dom/client';
 import { Types } from '../common/Interfaces';
 import Timers from '../common/utils/Timers';
 
@@ -216,7 +216,8 @@ export class FrontLayerViewManager {
             ? rootView
             : this._contextWrapper(rootView);
 
-        ReactDOM.render(maybeContextWrappedRootView, container);
+        const root = createRoot(container);
+        root.render(maybeContextWrappedRootView);
     }
 
     isPopupDisplayed(popupId?: string): boolean {
