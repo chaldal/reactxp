@@ -40,32 +40,6 @@ const _underlayInactive = 'transparent';
 
 const safeInsetsStyle = Styles.createViewStyle({ flex: 1, alignSelf: 'stretch' });
 
-function noop() { /* noop */ }
-
-function applyMixin(thisObj: any, mixin: {[propertyName: string]: any}, propertiesToSkip: string[]) {
-    Object.getOwnPropertyNames(mixin).forEach(name => {
-        if (name !== 'constructor' && propertiesToSkip.indexOf(name) === -1 && typeof mixin[name].bind === 'function') {
-            assert(
-                !(name in thisObj),
-                `An object cannot have a method with the same name as one of its mixins: "${name}"`,
-            );
-            thisObj[name] = mixin[name].bind(thisObj);
-        }
-    });
-}
-
-function removeMixin(thisObj: any, mixin: {[propertyName: string]: any}, propertiesToSkip: string[]) {
-    Object.getOwnPropertyNames(mixin).forEach(name => {
-        if (name !== 'constructor' && propertiesToSkip.indexOf(name) === -1) {
-            assert(
-                (name in thisObj),
-                `An object is missing a mixin method: "${name}"`,
-            );
-            delete thisObj[name];
-        }
-    });
-}
-
 type ChildKey = string | number;
 function extractChildrenKeys(children: React.ReactNode): ChildKey[] {
     const keys: ChildKey[] = [];
@@ -143,7 +117,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
     protected _internalProps: any = {};
 
     // Assigned when mixin is applied
-    touchableGetInitialState!: () => RN.Touchable.State;
+    // touchableGetInitialState!: () => RN.Touchable.State;
     touchableHandleStartShouldSetResponder!: () => boolean;
     touchableHandleResponderTerminationRequest!: () => boolean;
     touchableHandleResponderGrant!: (e: React.SyntheticEvent<any>) => void;
@@ -265,38 +239,15 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         const isButton = this._isButton(props);
         if (isButton && !this._mixinIsApplied) {
             // Create local handlers
-            this.touchableHandlePress = this.touchableHandlePress.bind(this);
-            this.touchableHandleLongPress = this.touchableHandleLongPress.bind(this);
-            this.touchableGetPressRectOffset = this.touchableGetPressRectOffset.bind(this);
-            this.touchableHandleActivePressIn = this.touchableHandleActivePressIn.bind(this);
-            this.touchableHandleActivePressOut = this.touchableHandleActivePressOut.bind(this);
-            this.touchableGetHighlightDelayMS = this.touchableGetHighlightDelayMS.bind(this);
-
-            applyMixin(this, RN.Touchable.Mixin, [
-                // Properties that View and RN.Touchable.Mixin have in common. View needs
-                // to dispatch these methods to RN.Touchable.Mixin manually.
-                'componentDidMount',
-                'componentWillUnmount',
-            ]);
-
-            this._mixin_componentDidMount = RN.Touchable.Mixin.componentDidMount || noop;
-            this._mixin_componentWillUnmount = RN.Touchable.Mixin.componentWillUnmount || noop;
-
-            if (initial) {
-                this.state = this.touchableGetInitialState();
-            } else {
-                this.setState(this.touchableGetInitialState());
-            }
+            this.touchableHandlePress = this.touchableHandlePress ? this.touchableHandlePress.bind(this) : undefined;
+            this.touchableHandleLongPress = this.touchableHandleLongPress ? this.touchableHandleLongPress.bind(this) : undefined;
+            this.touchableGetPressRectOffset = this.touchableGetPressRectOffset ? this.touchableGetPressRectOffset.bind(this) : undefined;
+            this.touchableHandleActivePressIn = this.touchableHandleActivePressIn ? this.touchableHandleActivePressIn.bind(this) : undefined;
+            this.touchableHandleActivePressOut = this.touchableHandleActivePressOut ? this.touchableHandleActivePressOut.bind(this) : undefined;
+            this.touchableGetHighlightDelayMS = this.touchableGetHighlightDelayMS ? this.touchableGetHighlightDelayMS.bind(this) : undefined;
 
             this._mixinIsApplied = true;
         } else if (!isButton && this._mixinIsApplied) {
-            removeMixin(this, RN.Touchable.Mixin, [
-                'componentDidMount',
-                'componentWillUnmount',
-            ]);
-
-            delete this._mixin_componentDidMount;
-            delete this._mixin_componentWillUnmount;
 
             delete this.touchableHandlePress;
             delete this.touchableHandleLongPress;
@@ -340,8 +291,8 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         const accessibilityProps = {
             importantForAccessibility: AccessibilityUtil.importantForAccessibilityToString(props.importantForAccessibility),
             accessibilityLabel: props.accessibilityLabel || props.title,
-            accessibilityTraits: AccessibilityUtil.accessibilityTraitToString(props.accessibilityTraits),
-            accessibilityComponentType: AccessibilityUtil.accessibilityComponentTypeToString(props.accessibilityTraits),
+            accessibilityState: AccessibilityUtil.overrideAccessibilityState(props.accessibilityState),
+            accessibilityRole: AccessibilityUtil.accessibilityRoleToString(props.accessibilityRole),
             accessibilityLiveRegion: AccessibilityUtil.accessibilityLiveRegionToString(props.accessibilityLiveRegion),
         };
         if (_isNativeMacOs && App.supportsExperimentalKeyboardNavigation && (props.onPress ||
@@ -501,7 +452,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         );
     }
 
-    touchableHandlePress(e: RX.Types.SyntheticEvent): void {
+    touchableHandlePress?(e: RX.Types.SyntheticEvent): void {
         UserInterface.evaluateTouchLatency(e);
         if (EventHelpers.isRightMouseButton(e)) {
             if (this.props.onContextMenu) {
@@ -514,7 +465,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         }
     }
 
-    touchableHandleLongPress(e: RX.Types.SyntheticEvent): void {
+    touchableHandleLongPress?(e: RX.Types.SyntheticEvent): void {
         if (!EventHelpers.isRightMouseButton(e)) {
             if (this.props.onLongPress) {
                 this.props.onLongPress(EventHelpers.toMouseEvent(e));
@@ -522,7 +473,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         }
     }
 
-    touchableHandleActivePressIn(e: RX.Types.SyntheticEvent): void {
+    touchableHandleActivePressIn?(e: RX.Types.SyntheticEvent): void {
         if (this._isTouchFeedbackApplicable()) {
             if (this.props.underlayColor) {
                 if (this._hideTimeout) {
@@ -539,7 +490,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         }
     }
 
-    touchableHandleActivePressOut(e: RX.Types.SyntheticEvent): void {
+    touchableHandleActivePressOut?(e: RX.Types.SyntheticEvent): void {
         if (this._isTouchFeedbackApplicable()) {
             if (this.props.underlayColor) {
                 if (this._hideTimeout) {
@@ -554,11 +505,11 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         }
     }
 
-    touchableGetHighlightDelayMS(): number {
+    touchableGetHighlightDelayMS?(): number {
         return 20;
     }
 
-    touchableGetPressRectOffset() {
+    touchableGetPressRectOffset?() {
         return {top: 20, left: 20, right: 20, bottom: 100};
     }
 

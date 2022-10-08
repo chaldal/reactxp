@@ -160,7 +160,7 @@ export class FocusManager extends FocusManagerBase {
             .map(componentId => FocusManager._allFocusableComponents[componentId])
             .filter(FocusManager._isComponentAvailable)
             .map(storedComponent => ({ storedComponent, el: ReactDOM.findDOMNode(storedComponent.component) as HTMLElement }))
-            .filter(f => f.el && f.el.focus && ((f.el.tabIndex || 0) >= 0) && !(f.el as any).disabled);
+            .filter(f => f.el && f.el.focus != undefined && ((f.el.tabIndex || 0) >= 0) && !(f.el as any).disabled);
 
         if (focusable.length) {
             focusable.sort((a, b) => {

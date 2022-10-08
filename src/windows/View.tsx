@@ -167,8 +167,8 @@ export class View extends ViewCommon implements React.ChildContextProvider<ViewC
         }
     }
 
-    private _hasTrait(trait: Types.AccessibilityTrait, traits: Types.AccessibilityTrait | Types.AccessibilityTrait[] | undefined) {
-        return traits === trait || (Array.isArray(traits) && traits.indexOf(trait) !== -1);
+    private _hasRole(role: Types.AccessibilityRole, roles: Types.AccessibilityRole | Types.AccessibilityRole[] | undefined) {
+        return roles === role || (Array.isArray(roles) && roles.indexOf(role) !== -1);
     }
 
     private _showContextMenu(keyEvent: Types.KeyboardEvent) {
@@ -197,8 +197,8 @@ export class View extends ViewCommon implements React.ChildContextProvider<ViewC
         // However, a view that is also a group or a dialog should keep children visible to UI Automation.
         // The following condition checks and sets RN importantForAccessibility property
         // to 'yes-dont-hide-descendants' to keep view children visible.
-        const hasGroup = this._hasTrait(Types.AccessibilityTrait.Group, props.accessibilityTraits);
-        const hasDialog = this._hasTrait(Types.AccessibilityTrait.Dialog, props.accessibilityTraits);
+        const hasGroup = this._hasRole(Types.AccessibilityRole.Group, props.accessibilityRole);
+        const hasDialog = this._hasRole(Types.AccessibilityRole.Dialog, props.accessibilityRole);
         const i4aYes = props.importantForAccessibility === Types.ImportantForAccessibility.Yes;
         const i4aAuto = (props.importantForAccessibility === Types.ImportantForAccessibility.Auto
             || props.importantForAccessibility === undefined);

@@ -14,7 +14,7 @@ import RN = require('react-native');
 import AccessibilityUtil from '../native-common/AccessibilityUtil';
 import ActivityIndicatorImpl from '../native-common/ActivityIndicator';
 import AlertImpl from '../native-common/Alert';
-import { CommonAnimatedClasses, makeAnimated } from '../native-common/Animated';
+import { AnimatedClasses, CommonAnimatedClasses, makeAnimated } from '../native-common/Animated';
 import ClipboardImpl from '../native-common/Clipboard';
 import ImageImpl from '../native-common/Image';
 import InputImpl from '../native-desktop/Input';
@@ -104,11 +104,11 @@ module ReactXP {
     export type View = RXInterfaces.View;
     export let View: typeof RXInterfaces.View = ViewImpl;
 
-    const windowsAnimatedClasses =  {
+    const windowsAnimatedClasses: AnimatedClasses =  {
         ...CommonAnimatedClasses,
-        View: RN.Animated.createAnimatedComponent(ViewImpl),
-        TextInput:  RN.Animated.createAnimatedComponent(TextInputImpl),
-        Text:  RN.Animated.createAnimatedComponent(TextImpl),
+        View: RN.Animated.createAnimatedComponent(ViewImpl) as unknown as typeof RN.ReactNativeBaseComponent,
+        TextInput:  RN.Animated.createAnimatedComponent(TextInputImpl) as unknown as typeof RN.ReactNativeBaseComponent,
+        Text:  RN.Animated.createAnimatedComponent(TextImpl) as unknown as typeof RN.ReactNativeBaseComponent,
     };
 
     export const Animated = makeAnimated(windowsAnimatedClasses, true);

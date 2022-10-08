@@ -26,7 +26,7 @@ export class Accessibility extends NativeAccessibility {
         // Work around the fact that the public react-native type definition doesn't
         // include 'highContrastDidChange' in RN.AccessibilityEventName.
         RN.AccessibilityInfo.addEventListener(
-            'highContrastDidChange' as RN.AccessibilityEventName,
+            'highContrastDidChange' as RN.AccessibilityChangeEventName,
             (isEnabled: boolean) => this._updateIsHighContrast(isEnabled),
         );
     }

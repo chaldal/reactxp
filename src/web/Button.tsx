@@ -39,7 +39,7 @@ const _styles = {
 };
 
 const _longPressTime = 1000;
-const _defaultAccessibilityTrait = Types.AccessibilityTrait.Button;
+const _defaultAccessibilityRole = Types.AccessibilityRole.Button;
 
 export interface ButtonContext {
     hasRxButtonAscendant?: boolean;
@@ -82,12 +82,12 @@ export class Button extends ButtonBase {
     }
 
     render() {
-        const ariaRole = AccessibilityUtil.accessibilityTraitToString(this.props.accessibilityTraits,
-            _defaultAccessibilityTrait);
-        const ariaSelected = AccessibilityUtil.accessibilityTraitToAriaSelected(this.props.accessibilityTraits);
-        const ariaChecked = AccessibilityUtil.accessibilityTraitToAriaChecked(this.props.accessibilityTraits);
+        const ariaRole = AccessibilityUtil.accessibilityRoleToString(this.props.accessibilityRole,
+            _defaultAccessibilityRole);
+        const ariaSelected = AccessibilityUtil.accessibilityRoleAndStateToAriaSelected(this.props.accessibilityRole, this.props.accessibilityState);
+        const ariaChecked = AccessibilityUtil.accessibilityRoleAndStateToAriaChecked(this.props.accessibilityRole, this.props.accessibilityState);
         const isAriaHidden = AccessibilityUtil.isHidden(this.props.importantForAccessibility);
-        const ariaHasPopup = AccessibilityUtil.accessibilityTraitToAriaHasPopup(this.props.accessibilityTraits);
+        const ariaHasPopup = AccessibilityUtil.accessibilityRoleAndStateToAriaHasPopup(this.props.accessibilityRole);
 
         // NOTE: We use tabIndex=0 to support focus.
         return (

@@ -88,7 +88,7 @@ export abstract class GestureView extends GestureViewCommon {
     }
 
     render() {
-        const ariaRole = AccessibilityUtil.accessibilityTraitToString(this.props.accessibilityTraits);
+        const ariaRole = AccessibilityUtil.accessibilityRoleToString(this.props.accessibilityRole);
         const isAriaHidden = AccessibilityUtil.isHidden(this.props.importantForAccessibility);
 
         return (
@@ -148,7 +148,7 @@ export abstract class GestureView extends GestureViewCommon {
         this._responder = MouseResponder.create({
             id: this._id,
             target: container,
-            disableWhenModal: !!this.context.isInRxMainView,
+            disableWhenModal: !!(this.context as any).isInRxMainView, // TODO - apply proper type for context
             shouldBecomeFirstResponder: (event: MouseEvent) => {
                 if (!this.props.onPan && !this.props.onPanHorizontal && !this.props.onPanVertical) {
                     return false;

@@ -16,6 +16,7 @@ import * as RX from './Interfaces';
 export { default as SubscribableEvent, SubscriptionToken } from 'subscribableevent';
 
 export type ReactNode = React.ReactNode;
+export type {AccessibilityState as AccessibilityState}
 
 // Some RX components contain render logic in the abstract classes located in rx/common. That render logic
 // depends on using a platform specific React library (web vs native). Thus, we need an interface to abstract

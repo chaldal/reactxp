@@ -321,9 +321,9 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RX.Vi
 
     render() {
         const combinedStyles = Styles.combine([_styles.defaultStyle, this.props.style]);
-        let ariaRole = AccessibilityUtil.accessibilityTraitToString(this.props.accessibilityTraits);
+        let ariaRole = AccessibilityUtil.accessibilityRoleToString(this.props.accessibilityRole);
         const tabIndex = this.props.tabIndex;
-        const ariaSelected = AccessibilityUtil.accessibilityTraitToAriaSelected(this.props.accessibilityTraits);
+        const ariaSelected = AccessibilityUtil.accessibilityRoleAndStateToAriaSelected(this.props.accessibilityRole, this.props.accessibilityState);
         const isAriaHidden = AccessibilityUtil.isHidden(this.props.importantForAccessibility);
         const accessibilityLabel = this.props.accessibilityLabel;
         const ariaLabelledBy = this.props.ariaLabelledBy;
