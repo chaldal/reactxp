@@ -31,7 +31,7 @@ export interface VirtualListCellProps<ItemInfo extends VirtualListCellInfo> exte
     onItemFocused?: (item: ItemInfo | undefined) => void;
     onItemSelected?: (item: ItemInfo) => void;
     renderItem: (details: VirtualListCellRenderDetails<ItemInfo>) => JSX.Element | JSX.Element[];
-    onKeyPress: (ev: RX.Types.KeyboardEvent) => void;
+    onKeyPress?: (ev: RX.Types.KeyboardEvent) => void;
 
     // Props that do not impact render (position is set by animated style).
     itemKey: string | undefined;
@@ -285,11 +285,13 @@ export class VirtualListCell<ItemInfo extends VirtualListCellInfo> extends RX.Co
                                 duration: 200,
                                 delay: animationDelay,
                                 easing: _skypeEaseInAnimationCurve,
+                                useNativeDriver: true,
                             }),
                             RX.Animated.timing(this._topValue, {
                                 toValue: top,
                                 duration: 400,
                                 easing: _skypeEaseOutAnimationCurve,
+                                useNativeDriver: true,
                             }),
                         ]);
                     } else {
@@ -298,6 +300,7 @@ export class VirtualListCell<ItemInfo extends VirtualListCellInfo> extends RX.Co
                             duration: 200,
                             delay: animationDelay,
                             easing: RX.Animated.Easing.InOut(),
+                            useNativeDriver: true,
                         });
                     }
 
