@@ -8,8 +8,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "lint": "eslint --ext .ts,.tsx src",
-    "lint:fix": "npm run lint -- --fix",
-    "postinstall": "npm run build"
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "lodash": "^4.17.15",
