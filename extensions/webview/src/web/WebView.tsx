@@ -247,7 +247,7 @@ export class WebView extends React.Component<Types.WebViewProps, WebViewState> i
     reload() {
         const iframeDOM = this._mountedComponent;
         if (iframeDOM && iframeDOM.contentWindow) {
-            iframeDOM.contentWindow.location.reload(true);
+            iframeDOM.contentWindow.location.reload();
         }
     }
 
