@@ -8,7 +8,7 @@
  */
 
 import * as React from 'react';
-import { Styles as RXStyles } from 'reactxp';
+import RXStyles from 'reactxp/src/web/Styles';
 
 import assert from '../common/assert';
 import { ImageSvgProps } from '../common/Types';
@@ -17,62 +17,58 @@ export class ImageSvg extends React.Component<ImageSvgProps, {}> {
     render() {
         assert(this.props.width && this.props.height, 'The width and height on imagesvg are mandatory.');
 
-        if (this.props.width > 0 && this.props.height > 0) {
-            const combinedStyles = RXStyles.combine([{
-                display: 'flex',
-                position: 'relative',
-            } as any, this.props.style]);
+        const combinedStyles = RXStyles.combine([{
+            display: 'flex',
+            position: 'relative',
+        } as any, this.props.style]);
 
-            if (this.props.fillColor !== undefined) {
-                combinedStyles.fill = this.props.fillColor;
-            }
-
-            if (this.props.fillOpacity !== undefined) {
-                combinedStyles.fillOpacity = this.props.fillOpacity.toString();
-            }
-
-            if (this.props.strokeColor !== undefined) {
-                combinedStyles.stroke = this.props.strokeColor;
-            }
-
-            if (this.props.strokeOpacity !== undefined) {
-                combinedStyles.strokeOpacity = this.props.strokeOpacity.toString();
-            }
-
-            if (this.props.strokeWidth !== undefined) {
-                combinedStyles.strokeWidth = this.props.strokeWidth.toString();
-            }
-
-            if (combinedStyles.flex === undefined) {
-                combinedStyles.flex = '0 0 auto';
-            }
-
-            if (combinedStyles.overflow === undefined) {
-                combinedStyles.overflow = 'hidden';
-            }
-
-            if (this.props.webShadow) {
-                const aliases = RXStyles.getCssPropertyAliasesCssStyle();
-
-                if (this._isFilterDropShadowSupported()) {
-                    const filterAlias = aliases.filter || 'filter';
-                    combinedStyles[filterAlias] = 'drop-shadow(' + this.props.webShadow + ')';
-                }
-            }
-
-            return (
-                <svg
-                    viewBox={ this.props.viewBox }
-                    style={ combinedStyles }
-                    height={ this.props.height  }
-                    width={ this.props.width }
-                >
-                    { this.props.children }
-                </svg>
-            );
-        } else {
-            return null;
+        if (this.props.fillColor !== undefined) {
+            combinedStyles.fill = this.props.fillColor;
         }
+
+        if (this.props.fillOpacity !== undefined) {
+            combinedStyles.fillOpacity = this.props.fillOpacity.toString();
+        }
+
+        if (this.props.strokeColor !== undefined) {
+            combinedStyles.stroke = this.props.strokeColor;
+        }
+
+        if (this.props.strokeOpacity !== undefined) {
+            combinedStyles.strokeOpacity = this.props.strokeOpacity.toString();
+        }
+
+        if (this.props.strokeWidth !== undefined) {
+            combinedStyles.strokeWidth = this.props.strokeWidth.toString();
+        }
+
+        if (combinedStyles.flex === undefined) {
+            combinedStyles.flex = '0 0 auto';
+        }
+
+        if (combinedStyles.overflow === undefined) {
+            combinedStyles.overflow = 'hidden';
+        }
+
+        if (this.props.webShadow) {
+            const aliases = RXStyles.getCssPropertyAliasesCssStyle();
+
+            if (this._isFilterDropShadowSupported()) {
+                const filterAlias = aliases.filter || 'filter';
+                combinedStyles[filterAlias] = 'drop-shadow(' + this.props.webShadow + ')';
+            }
+        }
+
+        return (
+            <svg
+                viewBox={ this.props.viewBox }
+                style={ combinedStyles }
+                height={ this.props.height  }
+                width={ this.props.width }
+            >
+                { this.props.children }
+            </svg>
+        );
     }
 
     private _isFilterDropShadowSupported() {

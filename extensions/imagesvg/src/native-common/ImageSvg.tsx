@@ -8,31 +8,26 @@
  */
 
 import * as React from 'react';
-import * as RNSvg from 'react-native-svg';
+import { Svg, SvgProps } from 'react-native-svg';
 
 import assert from '../common/assert';
-import { ImageSvgProps } from '../common/Types';
 
-export class ImageSvg extends React.Component<ImageSvgProps, {}> {
+export class ImageSvg extends React.Component<SvgProps, {}> {
     render() {
         assert(this.props.width && this.props.height, 'The width and height on imagesvg are mandatory.');
 
-        if (this.props.width > 0 && this.props.height > 0) {
-            return (
-                <RNSvg.Svg
-                    width={ this.props.width.toString() }
-                    height={ this.props.height.toString() }
-                    style={ this.props.style }
-                    opacity={ this.props.strokeOpacity }
-                    preserveAspectRatio={ this.props.preserveAspectRatio }
-                    viewBox={ this.props.viewBox }
-                >
-                    { this.props.children }
-                </RNSvg.Svg>
-            );
-        }
-
-        return null;
+        return (
+            <Svg
+                width={ this.props.width }
+                height={ this.props.height }
+                style={ this.props.style }
+                opacity={ this.props.opacity }
+                preserveAspectRatio={ this.props.preserveAspectRatio }
+                viewBox={ this.props.viewBox }
+            >
+                {this.props.children}
+            </Svg>
+        );
     }
 }
 
