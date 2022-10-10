@@ -13,7 +13,7 @@
     "@react-native-community/netinfo": "^4.6.1"
   },
   "peerDependencies": {
-    "reactxp": "chaldal/reactxp#reactNative70",
+    "@chaldal/reactxp": ">=2.1.0",
     "react-native": ">=0.57"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
     "eslint": "6.8.0",
     "eslint-config-skype": "1.5.0",
     "eslint-plugin-import": "2.19.1",
-    "reactxp": "chaldal/reactxp#reactNative70",
+    "@chaldal/reactxp": "^2.1.0",
     "typescript": "4.8.4"
   },
   "types": "dist/web/PluginBase.d.ts"
