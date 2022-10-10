@@ -8,7 +8,7 @@
  */
 
 import { createRef } from 'react';
-import * as RX from 'reactxp';
+import * as RX from '@chaldal/reactxp';
 
 import assert from './assert';
 

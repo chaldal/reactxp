@@ -8,7 +8,7 @@
  */
 
 import * as React from 'react';
-import RXStyles from 'reactxp/src/web/Styles';
+import {Styles as RXStyles} from '@chaldal/reactxp';
 
 import assert from '../common/assert';
 import { ImageSvgProps } from '../common/Types';

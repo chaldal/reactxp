@@ -11,7 +11,7 @@ declare module 'react-native-svg' {
 
     import * as React from 'react';
     import * as RN from 'react-native';
-    import * as RXTypes from 'reactxp/src/common/Types';
+    import * as RXTypes from '@chaldal/reactxp';
 
     type ArrayType = [string] | [number];
 
