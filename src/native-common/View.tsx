@@ -40,6 +40,32 @@ const _underlayInactive = 'transparent';
 
 const safeInsetsStyle = Styles.createViewStyle({ flex: 1, alignSelf: 'stretch' });
 
+function noop() { /* noop */ }
+
+function applyMixin(thisObj: any, mixin: {[propertyName: string]: any}, propertiesToSkip: string[]) {
+    Object.getOwnPropertyNames(mixin).forEach(name => {
+        if (name !== 'constructor' && propertiesToSkip.indexOf(name) === -1 && typeof mixin[name].bind === 'function') {
+            assert(
+                !(name in thisObj),
+                `An object cannot have a method with the same name as one of its mixins: "${name}"`,
+            );
+            thisObj[name] = mixin[name].bind(thisObj);
+        }
+    });
+}
+
+function removeMixin(thisObj: any, mixin: {[propertyName: string]: any}, propertiesToSkip: string[]) {
+    Object.getOwnPropertyNames(mixin).forEach(name => {
+        if (name !== 'constructor' && propertiesToSkip.indexOf(name) === -1) {
+            assert(
+                (name in thisObj),
+                `An object is missing a mixin method: "${name}"`,
+            );
+            delete thisObj[name];
+        }
+    });
+}
+
 type ChildKey = string | number;
 function extractChildrenKeys(children: React.ReactNode): ChildKey[] {
     const keys: ChildKey[] = [];
@@ -117,7 +143,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
     protected _internalProps: any = {};
 
     // Assigned when mixin is applied
-    // touchableGetInitialState!: () => RN.Touchable.State;
+    touchableGetInitialState!: () => any; // TODO - figure out how to provide correct type
     touchableHandleStartShouldSetResponder!: () => boolean;
     touchableHandleResponderTerminationRequest!: () => boolean;
     touchableHandleResponderGrant!: (e: React.SyntheticEvent<any>) => void;
@@ -246,8 +272,31 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
             this.touchableHandleActivePressOut = this.touchableHandleActivePressOut ? this.touchableHandleActivePressOut.bind(this) : undefined;
             this.touchableGetHighlightDelayMS = this.touchableGetHighlightDelayMS ? this.touchableGetHighlightDelayMS.bind(this) : undefined;
 
+            applyMixin(this, RN.Touchable.Mixin, [
+                // Properties that View and RN.Touchable.Mixin have in common. View needs
+                // to dispatch these methods to RN.Touchable.Mixin manually.
+                'componentDidMount',
+                'componentWillUnmount',
+            ]);
+
+            this._mixin_componentDidMount = RN.Touchable.Mixin.componentDidMount || noop;
+            this._mixin_componentWillUnmount = RN.Touchable.Mixin.componentWillUnmount || noop;
+
+            if (initial) {
+                this.state = this.touchableGetInitialState();
+            } else {
+                this.setState(this.touchableGetInitialState());
+            }
+
             this._mixinIsApplied = true;
         } else if (!isButton && this._mixinIsApplied) {
+            removeMixin(this, RN.Touchable.Mixin, [
+                'componentDidMount',
+                'componentWillUnmount',
+            ]);
+
+            delete this._mixin_componentDidMount;
+            delete this._mixin_componentWillUnmount;
 
             delete this.touchableHandlePress;
             delete this.touchableHandleLongPress;
