@@ -6,7 +6,7 @@
 * we can't embed ScrollViews within a parent ScrollView.
 */
 
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 import * as CommonStyles from '../CommonStyles';
 import { Test, TestResult, TestType } from '../Test';

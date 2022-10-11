@@ -3,7 +3,7 @@
 */
 
 import * as _ from 'lodash';
-import * as RX from 'reactxp';
+import * as RX from '@chaldal/reactxp';
 
 import * as CommonStyles from '../CommonStyles';
 import { Test, TestResult, TestType } from '../Test';

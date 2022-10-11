@@ -2,7 +2,7 @@
 * Main entry point for web app.
 */
 
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 import App = require('./App');
 

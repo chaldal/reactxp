@@ -16,6 +16,7 @@
     "outDir": "./dist/",
     "types" : ["lodash", "react", "react-dom"],
     "strict": true,
+    "skipLibCheck": true,
     "lib": [
         "es2015.promise",
         "es2015.iterable",

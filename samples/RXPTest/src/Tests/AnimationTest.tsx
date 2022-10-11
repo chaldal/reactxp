@@ -3,7 +3,7 @@
 */
 
 import _ = require('lodash');
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 import * as CommonStyles from '../CommonStyles';
 import { AutoExecutableTest, TestResult, TestType } from '../Test';
@@ -312,24 +312,28 @@ class AnimationView extends RX.Component<RX.CommonProps, AnimationViewState> {
                 RX.Animated.timing(this._test2Color, {
                     toValue: 1,
                     duration: _test2Duration,
-                    easing: RX.Animated.Easing.InOut()
+                    easing: RX.Animated.Easing.InOut(),
+                    useNativeDriver: false
                 }),
                 RX.Animated.timing(this._test2OffsetH, {
                     toValue: 100,
                     duration: _test2Duration,
-                    easing: RX.Animated.Easing.Linear()
+                    easing: RX.Animated.Easing.Linear(),
+                    useNativeDriver: false
                 })
             ]),
             RX.Animated.parallel([
                 RX.Animated.timing(this._test2Color, {
                     toValue: 0,
                     duration: _test2Duration,
-                    easing: RX.Animated.Easing.InOut()
+                    easing: RX.Animated.Easing.InOut(),
+                    useNativeDriver: false
                 }),
                 RX.Animated.timing(this._test2OffsetH, {
                     toValue: -100,
                     duration: _test2Duration,
-                    easing: RX.Animated.Easing.Linear()
+                    easing: RX.Animated.Easing.Linear(),
+                    useNativeDriver: false
                 })
             ])
         ]);
@@ -352,7 +356,8 @@ class AnimationView extends RX.Component<RX.CommonProps, AnimationViewState> {
             delay: 250,
             loop: {
                 restartFrom: 0
-            }
+            },
+            useNativeDriver: true
         });
 
         animation.start();
@@ -374,7 +379,8 @@ class AnimationView extends RX.Component<RX.CommonProps, AnimationViewState> {
         let animation = RX.Animated.timing(this._test4OffsetH, {
             toValue: 0,
             duration: _test4Duration,
-            easing: RX.Animated.Easing.Linear()
+            easing: RX.Animated.Easing.Linear(),
+            useNativeDriver: true
         });
 
         let isFinished: boolean|undefined;
@@ -403,7 +409,8 @@ class AnimationView extends RX.Component<RX.CommonProps, AnimationViewState> {
                 RX.Animated.timing(this._test4OffsetH, {
                     toValue: -100,
                     duration: _test4Duration / 2,
-                    easing: RX.Animated.Easing.Linear()
+                    easing: RX.Animated.Easing.Linear(),
+                    useNativeDriver: true
                 }).start(completeInfo => {
                     if (!completeInfo.finished) {
                         this._testResult!.errors.push('Completion callback "finished" parameter was not true as expected');

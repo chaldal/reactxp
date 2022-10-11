@@ -2,7 +2,7 @@
 * Tests the basic functionality of a Storage APIs.
 */
 
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 import * as CommonStyles from '../CommonStyles';
 import { AutoExecutableTest, TestResult, TestType } from '../Test';

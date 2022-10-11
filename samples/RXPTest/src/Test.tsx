@@ -2,7 +2,7 @@
 * A base class for all tests.
 */
 
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 export const enum TestType {
     // The test needs to be executed but requires no user interaction or validation
