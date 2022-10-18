@@ -33,7 +33,7 @@
   "homepage": "https://microsoft.github.io/reactxp/docs/extensions/virtuallistview.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/reactxp/"
+    "url": "https://github.com/chaldal/reactxp/"
   },
   "bugs": {
     "url": "https://github.com/microsoft/reactxp/issues"

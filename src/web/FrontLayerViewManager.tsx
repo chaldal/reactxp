@@ -30,6 +30,8 @@ export class FrontLayerViewManager {
     private _popupShowDelayTimer: number | undefined;
     private _cachedPopups: PopupDescriptor[] = [];
 
+    private _root: any = undefined;
+
     // We need to be careful accessing document because it may not be defined
     // in some environments like Electron.
     private _isRtlDefault = typeof document !== 'undefined' &&
@@ -216,8 +218,13 @@ export class FrontLayerViewManager {
             ? rootView
             : this._contextWrapper(rootView);
 
-        const root = createRoot(container);
-        root.render(maybeContextWrappedRootView);
+        if (this._root === undefined) {
+            this._root = createRoot(container);
+        }
+
+        if (this._root !== undefined) {
+            this._root.render(maybeContextWrappedRootView);
+        }
     }
 
     isPopupDisplayed(popupId?: string): boolean {
