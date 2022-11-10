@@ -41,7 +41,8 @@ const _styles = {
 
 const _isNativeMacOs = Platform.getType() === 'macos';
 
-const _defaultAccessibilityTrait = Types.AccessibilityTrait.Button;
+const _defaultAccessibilityRole = Types.AccessibilityRole.Button;
+const _defaultDisabledAccessibilityState : RN.AccessibilityState = {disabled: true}
 const _defaultImportantForAccessibility = Types.ImportantForAccessibility.Yes;
 
 const _defaultActiveOpacity = 0.2;
@@ -85,7 +86,7 @@ export class Button extends ButtonBase {
     private _mixin_componentWillUnmount = RN.Touchable.Mixin.componentWillUnmount || noop;
 
     // These are provided by mixin applied in the constructor
-    touchableGetInitialState!: () => RN.Touchable.State;
+    touchableGetInitialState!: () => any;
     touchableHandleStartShouldSetResponder!: () => boolean;
     touchableHandleResponderTerminationRequest!: () => boolean;
     touchableHandleResponderGrant!: (e: RN.GestureResponderEvent) => void;
@@ -133,10 +134,11 @@ export class Button extends ButtonBase {
         // Accessibility props.
         const importantForAccessibility = AccessibilityUtil.importantForAccessibilityToString(this.props.importantForAccessibility,
             _defaultImportantForAccessibility);
-        const accessibilityTrait = AccessibilityUtil.accessibilityTraitToString(this.props.accessibilityTraits,
-            _defaultAccessibilityTrait, true);
-        const accessibilityComponentType = AccessibilityUtil.accessibilityComponentTypeToString(this.props.accessibilityTraits,
-            _defaultAccessibilityTrait);
+        const defaultAccessiblityState = this.props.disabled ? _defaultDisabledAccessibilityState : {};
+        const accessibilityState = AccessibilityUtil.overrideAccessibilityState(this.props.accessibilityState,
+            defaultAccessiblityState);
+        const accessibilityRole = AccessibilityUtil.accessibilityRoleToString(this.props.accessibilityRole,
+            _defaultAccessibilityRole);
 
         const opacityStyle = this.props.disableTouchOpacityAnimation ? undefined : this._opacityAnimatedStyle;
         let disabledStyle = this.props.disabled ? _styles.disabled : undefined;
@@ -155,8 +157,8 @@ export class Button extends ButtonBase {
             style: Styles.combine([_styles.defaultButton as any, this.props.style, opacityStyle,
                 disabledStyle]) as RN.StyleProp<RN.ViewStyle>,
             accessibilityLabel: this.props.accessibilityLabel || this.props.title,
-            accessibilityTraits: accessibilityTrait,
-            accessibilityComponentType: accessibilityComponentType,
+            accessibilityState: accessibilityState,
+            accessibilityRole: accessibilityRole,
             importantForAccessibility: importantForAccessibility,
             onStartShouldSetResponder: this.touchableHandleStartShouldSetResponder,
             onResponderTerminationRequest: this.touchableHandleResponderTerminationRequest,
@@ -165,7 +167,7 @@ export class Button extends ButtonBase {
             onResponderRelease: this.touchableHandleResponderRelease,
             onResponderTerminate: this.touchableHandleResponderTerminate,
             shouldRasterizeIOS: this.props.shouldRasterizeIOS,
-            testID: this.props.testId,
+            testID: this.props.testId
         };
 
         // Mac RN requires some addition props for button accessibility

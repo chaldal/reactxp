@@ -4,8 +4,8 @@
 */
 
 import _ = require('lodash');
-import RX = require('reactxp');
-import RXWebView, { Types as RXWebViewTypes } from 'reactxp-webview';
+import RX = require('@chaldal/reactxp');
+import RXWebView, { Types as RXWebViewTypes } from '@chaldal/reactxp-webview';
 
 import * as CommonStyles from '../CommonStyles';
 import { Test, TestResult, TestType } from '../Test';

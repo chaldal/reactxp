@@ -132,7 +132,7 @@ abstract class BaseRootView<P extends BaseRootViewProps> extends React.Component
             undefined; // default
 
         const content = (
-            <RN.Animated.View style={ _styles.rootViewStyle }>
+            <RN.Animated.View style={ _styles.rootViewStyle as RN.StyleProp<RN.ViewStyle> }>
                 <RN.View
                     style={ _styles.rootViewStyle as RN.StyleProp<RN.ViewStyle> }
                     importantForAccessibility={ importantForAccessibility }

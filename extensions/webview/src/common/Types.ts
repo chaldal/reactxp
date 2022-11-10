@@ -8,7 +8,7 @@
  */
 
 import { Component as ReactComponent } from 'react';
-import { Types as RXTypes } from 'reactxp';
+import { Types as RXTypes } from '@chaldal/reactxp';
 
 export interface WebViewNavigationState {
     canGoBack: boolean;

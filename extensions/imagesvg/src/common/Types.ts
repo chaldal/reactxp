@@ -6,7 +6,7 @@
  * Type definitions to support the plugin.
  */
 
-import { Types as RXTypes } from 'reactxp';
+import {Types as RXTypes} from '@chaldal/reactxp';
 import * as React from 'react';
 
 export interface ImageSvgStyle extends RXTypes.ViewStyle {
@@ -25,8 +25,8 @@ export interface SvgCommonProps {
 
 export interface ImageSvgProps extends SvgCommonProps, RXTypes.CommonStyledProps<ImageSvgStyleRuleSet, ImageSvg> {
     children?: RXTypes.ReactNode;
-    height: number;
-    width: number;
+    height: string;
+    width: string;
     accessibilityLabel?: string;
     title?: string;
     viewBox?: string;

@@ -13,7 +13,7 @@ import * as RN from 'react-native';
 import EventHelpers from '../native-common/utils/EventHelpers';
 import { ScrollView as ScrollViewBase } from '../native-common/ScrollView';
 
-type ScrollViewProps = RN.ScrollViewProps & React.Props<RN.ScrollView>;
+type ScrollViewProps = RN.ScrollViewProps & React.RefAttributes<RN.ScrollView>;
 
 const isNativeWindows = RN.Platform.OS === 'windows';
 

@@ -16,29 +16,29 @@ import * as _ from './utils/lodashMini';
 // Map of accessibility trait to an aria role attribute.
 // What's a role attribute? https://www.w3.org/wiki/PF/XTech/HTML5/RoleAttribute
 const roleMap: { [key: string]: string } = {
-    [Types.AccessibilityTrait.None]: 'presentation',
-    [Types.AccessibilityTrait.Button]: 'button',
-    [Types.AccessibilityTrait.Link]: 'link',
-    [Types.AccessibilityTrait.Header]: 'heading',
-    [Types.AccessibilityTrait.Search]: 'search',
-    [Types.AccessibilityTrait.Image]: 'img',
-    [Types.AccessibilityTrait.Summary]: 'region',
-    [Types.AccessibilityTrait.Adjustable]: 'slider',
-    [Types.AccessibilityTrait.Menu]: 'menu',
-    [Types.AccessibilityTrait.MenuItem]: 'menuitem',
-    [Types.AccessibilityTrait.MenuBar]: 'menubar',
-    [Types.AccessibilityTrait.Tab]: 'tab',
-    [Types.AccessibilityTrait.TabList]: 'tablist',
-    [Types.AccessibilityTrait.List]: 'list',
-    [Types.AccessibilityTrait.ListItem]: 'listitem',
-    [Types.AccessibilityTrait.ListBox]: 'listbox',
-    [Types.AccessibilityTrait.Group]: 'group',
-    [Types.AccessibilityTrait.CheckBox]: 'checkbox',
-    [Types.AccessibilityTrait.ComboBox]: 'combobox',
-    [Types.AccessibilityTrait.Log]: 'log',
-    [Types.AccessibilityTrait.Status]: 'status',
-    [Types.AccessibilityTrait.Dialog]: 'dialog',
-    [Types.AccessibilityTrait.Switch]: 'switch',
+    [Types.AccessibilityRole.None]: 'presentation',
+    [Types.AccessibilityRole.Button]: 'button',
+    [Types.AccessibilityRole.Link]: 'link',
+    [Types.AccessibilityRole.Header]: 'heading',
+    [Types.AccessibilityRole.Search]: 'search',
+    [Types.AccessibilityRole.Image]: 'img',
+    [Types.AccessibilityRole.Summary]: 'region',
+    [Types.AccessibilityRole.Adjustable]: 'slider',
+    [Types.AccessibilityRole.Menu]: 'menu',
+    [Types.AccessibilityRole.MenuItem]: 'menuitem',
+    [Types.AccessibilityRole.MenuBar]: 'menubar',
+    [Types.AccessibilityRole.Tab]: 'tab',
+    [Types.AccessibilityRole.TabList]: 'tablist',
+    [Types.AccessibilityRole.List]: 'list',
+    [Types.AccessibilityRole.ListItem]: 'listitem',
+    [Types.AccessibilityRole.ListBox]: 'listbox',
+    [Types.AccessibilityRole.Group]: 'group',
+    [Types.AccessibilityRole.CheckBox]: 'checkbox',
+    [Types.AccessibilityRole.ComboBox]: 'combobox',
+    [Types.AccessibilityRole.Log]: 'log',
+    [Types.AccessibilityRole.Status]: 'status',
+    [Types.AccessibilityRole.Dialog]: 'dialog',
+    [Types.AccessibilityRole.Switch]: 'switch',
 };
 
 // Map of accesssibility live region to an aria-live property.
@@ -59,13 +59,13 @@ export class AccessibilityUtil extends CommonAccessibiltiyUtil {
 
     // Web equivalent value for role property.
     // NOTE: Web only supports a single aria-role on a component.
-    accessibilityTraitToString(traits: Types.AccessibilityTrait | Types.AccessibilityTrait[] | undefined,
-            defaultTrait?: Types.AccessibilityTrait): string | undefined {
+    accessibilityRoleToString(roles: Types.AccessibilityRole | Types.AccessibilityRole[] | undefined,
+            defaultRole?: Types.AccessibilityRole): string | undefined {
         // Combine & remove duplicate traits.
-        let combinedTraits: Types.AccessibilityTrait[] = defaultTrait ? [defaultTrait] : [];
+        let combinedTraits: Types.AccessibilityRole[] = defaultRole ? [defaultRole] : [];
 
-        if (traits) {
-            combinedTraits = _.union(combinedTraits, Array.isArray(traits) ? traits : [traits]);
+        if (roles) {
+            combinedTraits = _.union(combinedTraits, Array.isArray(roles) ? roles : [roles]);
         }
 
         // Max enum value in this array of traits is role for web. Return corresponding
@@ -75,10 +75,10 @@ export class AccessibilityUtil extends CommonAccessibiltiyUtil {
             : undefined;
     }
 
-    accessibilityTraitToAriaSelected(traits: Types.AccessibilityTrait | Types.AccessibilityTrait[] | undefined): boolean | undefined {
+    accessibilityRoleAndStateToAriaSelected(roles: Types.AccessibilityRole | Types.AccessibilityRole[] | undefined, state: Types.AccessibilityState | undefined): boolean | undefined {
         // Walk through each trait and check if there's a selected trait. Return if one is found.
-        if (traits && Array.isArray(traits) && traits.indexOf(Types.AccessibilityTrait.Tab) !== -1) {
-            return traits.indexOf(Types.AccessibilityTrait.Selected) !== -1;
+        if (roles && Array.isArray(roles) && roles.indexOf(Types.AccessibilityRole.Tab) !== -1 && state) {
+            return state.selected
         }
 
         // Here we are returning undefined if the above condition is not met
@@ -86,10 +86,10 @@ export class AccessibilityUtil extends CommonAccessibiltiyUtil {
         return undefined;
     }
 
-    accessibilityTraitToAriaChecked(traits: Types.AccessibilityTrait | Types.AccessibilityTrait[] | undefined): boolean | undefined {
+    accessibilityRoleAndStateToAriaChecked(roles: Types.AccessibilityRole | Types.AccessibilityRole[] | undefined, state: Types.AccessibilityState | undefined): boolean | undefined {
         // Walk through each trait and check if there's a checked trait. Return if one is found.
-        if (traits && Array.isArray(traits) && traits.indexOf(Types.AccessibilityTrait.CheckBox) !== -1) {
-            return traits.indexOf(Types.AccessibilityTrait.Checked) !== -1;
+        if (roles && Array.isArray(roles) && roles.indexOf(Types.AccessibilityRole.CheckBox) !== -1 && state) {
+            return state.checked == true
         }
 
         // Here we are returning undefined if the above condition is not met
@@ -97,10 +97,10 @@ export class AccessibilityUtil extends CommonAccessibiltiyUtil {
         return undefined;
     }
 
-    accessibilityTraitToAriaHasPopup(traits: Types.AccessibilityTrait | Types.AccessibilityTrait[] | undefined): boolean | undefined {
+    accessibilityRoleAndStateToAriaHasPopup(roles: Types.AccessibilityRole | Types.AccessibilityRole[] | undefined): boolean | undefined {
         // Walk through each trait and check if there's a hasPopup trait. Return if one is found.
-        if (traits && Array.isArray(traits) && traits.indexOf(Types.AccessibilityTrait.HasPopup) !== -1) {
-            return traits.indexOf(Types.AccessibilityTrait.HasPopup) !== -1;
+        if (roles && Array.isArray(roles) && roles.indexOf(Types.AccessibilityRole.HasPopup) !== -1) {
+            true
         }
 
         // Here we are returning undefined if the above condition is not met

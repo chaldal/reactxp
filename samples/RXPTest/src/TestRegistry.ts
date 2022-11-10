@@ -23,7 +23,7 @@ import LinkingTest from './Tests/LinkingTest';
 import LocationTest from './Tests/LocationTest';
 import ModalTest from './Tests/ModalTest';
 import NetworkTest from './Tests/NetworkTest';
-import PickerTest from './Tests/PickerTest';
+// import PickerTest from './Tests/PickerTest';
 import PlatformTest from './Tests/PlatformTest';
 import PopupTest from './Tests/PopupTest';
 import ScrollViewBasicTest from './Tests/ScrollViewBasicTest';
@@ -73,7 +73,7 @@ class TestRegistry {
         this.registerTest(ImageApiTest);
         this.registerTest(ImageInteractiveTest);
         this.registerTest(LinkTest);
-        this.registerTest(PickerTest);
+        // this.registerTest(PickerTest);
         this.registerTest(ScrollViewBasicTest);
         this.registerTest(ScrollViewEventTest);
         this.registerTest(TextTest);

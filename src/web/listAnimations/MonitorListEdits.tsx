@@ -138,7 +138,7 @@ export interface MonitorListEditsProps extends React.HTMLAttributes<any> {
     // Called when list edits are detected. Gives you an opportunity to animate them.
     // Call `done` when the animations are finished. Until `done` is called, the component
     // will refuse to rerender.
-    componentWillAnimate: (edits: Edits, done: () => void) => void;
+    componentWillAnimate?: (edits: Edits, done: () => void) => void;
 
     testId?: string;
 }
@@ -314,7 +314,7 @@ export class MonitorListEdits extends React.Component<MonitorListEditsProps, Typ
 
             this._phase = ComponentPhaseEnum.animating;
             this._willAnimatePhaseInfo = undefined;
-            this.props.componentWillAnimate({
+            this.props.componentWillAnimate && this.props.componentWillAnimate({
                 added: added,
                 moved: moved,
                 removed: removed,

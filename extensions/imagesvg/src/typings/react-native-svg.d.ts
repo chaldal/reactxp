@@ -11,16 +11,18 @@ declare module 'react-native-svg' {
 
     import * as React from 'react';
     import * as RN from 'react-native';
+    import * as RXTypes from '@chaldal/reactxp';
 
     type ArrayType = [string] | [number];
 
-    interface SvgProps extends RN.ComponentPropsBase {
-        height?: string;
-        width?: string;
+    interface SvgProps {
+        height: string;
+        width: string;
         viewBox?: string;
         opacity?: number;
         preserveAspectRatio?: string;
         style?: RN.StyleRuleSet;
+        children?: RXTypes.ReactNode
     }
 
     interface BaseProps extends RN.ComponentPropsBase {

@@ -8,6 +8,7 @@
 */
 
 import * as React from 'react';
+import { AccessibilityState } from 'react-native';
 
 // Use only for type data
 import * as RX from './Interfaces';
@@ -15,6 +16,7 @@ import * as RX from './Interfaces';
 export { default as SubscribableEvent, SubscriptionToken } from 'subscribableevent';
 
 export type ReactNode = React.ReactNode;
+export type {AccessibilityState as AccessibilityState}
 
 // Some RX components contain render logic in the abstract classes located in rx/common. That render logic
 // depends on using a platform specific React library (web vs native). Thus, we need an interface to abstract
@@ -368,7 +370,8 @@ export interface CommonAccessibilityProps {
     importantForAccessibility?: ImportantForAccessibility;
     accessibilityId?: string;
     accessibilityLabel?: string;
-    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
+    accessibilityState?: AccessibilityState;
+    accessibilityRole?: AccessibilityRole;
 
     // Desktop only.
     tabIndex?: number;
@@ -402,39 +405,37 @@ export enum AccessibilityLiveRegion {
 // which can be assigned to an accessible object. On native, all traits are combined as
 // a list. On desktop, trait with the maximum value is picked. Whenever you are adding
 // a new trait add it in the right priority order in the list.
-export enum AccessibilityTrait {
-    // Desktop and iOS.
+export enum AccessibilityRole {
+    // Native Only
+    Alert,
+    Imagebutton,
+    Keyboardkey,
+    ProgressBar,
+    Radio,
+    RadioGroup,
+    ScrollBar,
+    SpinButton,
+    Timer,
+    ToggleButton,
+    Toolbar,
+
+    // Desktop and Native.
     Summary,
     Adjustable,
-
-    // Desktop, iOS, and Android.
     Button,
     Tab,
-    Selected,
-
-    // Android only.
-    Radio_button_checked,
-    Radio_button_unchecked,
-
-    // iOS only.
     Link,
     Header,
     Search,
     Image,
-    Plays,
-    Key,
     Text,
-    Disabled,
-    FrequentUpdates,
-    StartsMedia,
-    AllowsDirectInteraction,
-    PageTurn,
-
-    // Desktop only.
     Menu,
     MenuItem,
     MenuBar,
     TabList,
+
+
+    // Desktop only.
     List,
     ListItem,
     ListBox,
@@ -1071,7 +1072,7 @@ export enum LocationErrorType {
 }
 
 export type LocationWatchId = number;
-export type LocationSuccessCallback = (position: Position) => void;
+export type LocationSuccessCallback = (position: GeolocationPosition) => void;
 export type LocationFailureCallback = (error: LocationErrorType) => void;
 
 //

@@ -1,6 +1,6 @@
 {
     "rulesDirectory": [
-        "./node_modules/reactxp/dist/tslint"
+        "./node_modules/@chaldal/reactxp/dist/tslint"
     ],
     "rules": {
         "grouped-import": true,

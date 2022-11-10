@@ -155,16 +155,16 @@ export class PopupContainerView extends PopupContainerViewBase<PopupContainerVie
 
                 assert(!!this._viewHandle);
 
-                const anchorRect: ClientRect = {
+                const anchorRect: DOMRect = {
                     left: x, top: y, right: x + width, bottom: y + height,
-                    width: width, height: height};
+                    width: width, height: height, x, y, toJSON: ()=>{}};
 
                 RN.NativeModules.UIManager.measureInWindow(
                     this._viewHandle,
                     (x: number, y: number, width: number, height: number) => {
-                        const popupRect: ClientRect = {
+                        const popupRect: DOMRect = {
                             left: x, top: y, right: x + width, bottom: y + height,
-                            width: width, height: height,
+                            width: width, height: height, x, y, toJSON: ()=>{}
                         };
 
                         this._recalcPositionFromLayoutData(anchorRect, popupRect);
@@ -174,7 +174,7 @@ export class PopupContainerView extends PopupContainerViewBase<PopupContainerVie
         );
     }
 
-    private _recalcPositionFromLayoutData(anchorRect: ClientRect, popupRect: ClientRect): void {
+    private _recalcPositionFromLayoutData(anchorRect: DOMRect, popupRect: DOMRect): void {
         if (!this._mountedComponent) {
             return;
         }

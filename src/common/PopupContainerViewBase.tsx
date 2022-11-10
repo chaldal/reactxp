@@ -284,6 +284,7 @@ export abstract class PopupContainerViewBase<P extends PopupContainerViewBasePro
     static contextTypes: React.ValidationMap<any> = {
         focusManager: PropTypes.object,
     };
+    declare context: PopupContainerViewContext
     static childContextTypes: React.ValidationMap<any> = {
         focusManager: PropTypes.object,
         popupContainer: PropTypes.object,

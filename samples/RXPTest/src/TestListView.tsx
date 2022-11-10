@@ -4,7 +4,7 @@
 */
 
 import _ = require('lodash');
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 import * as CommonStyles from './CommonStyles';
 import { Test, TestResult, TestType } from './Test';
@@ -32,7 +32,7 @@ const _styles = {
         flex: 0,
         margin: 8,
         height: 28,
-        backgroundColor: CommonStyles.buttonBackgroundColor,
+        backgroundColor: CommonStyles.errorTextColor,
         borderRadius: CommonStyles.buttonBorderRadius,
         borderWidth: CommonStyles.buttonBorderWidth,
         borderColor: CommonStyles.buttonBorderColor
@@ -170,7 +170,7 @@ export class TestListView extends RX.Component<TestListViewProps, TestListViewSt
                     </RX.Text>
                     <RX.Button style={ _styles.button } onPress={ this._runAll }>
                         <RX.Text style={ _styles.buttonText }>
-                            { 'Run All' }
+                            { 'asdf' }
                         </RX.Text>
                     </RX.Button>
                 </RX.View>
@@ -186,6 +186,7 @@ export class TestListView extends RX.Component<TestListViewProps, TestListViewSt
     }
 
     private _runAll = (e: RX.Types.SyntheticEvent) => {
+        console.log("hello")
         this.props.onRunAll();
     }
 }

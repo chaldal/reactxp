@@ -25,7 +25,7 @@ export class ScrollView extends ViewBase<RX.Types.ScrollViewProps, RX.Types.Stat
     private _scrollTop = 0;
     private _scrollLeft = 0;
 
-    protected _render(nativeProps: RN.ScrollViewProps & React.Props<RN.ScrollView>): JSX.Element {
+    protected _render(nativeProps: RN.ScrollViewProps & React.RefAttributes<RN.ScrollView>): JSX.Element {
         if (this.props.scrollXAnimatedValue || this.props.scrollYAnimatedValue) {
             // Have to jump over to an Animated ScrollView to use an RN.Animated.event...
             return (
@@ -108,7 +108,7 @@ export class ScrollView extends ViewBase<RX.Types.ScrollViewProps, RX.Types.Stat
         // We also set removeClippedSubviews to false, overriding the default value. Most of the scroll views
         // we use are virtualized anyway.
 
-        const internalProps: RN.ScrollViewProps & React.Props<RN.ScrollView> = {
+        const internalProps: RN.ScrollViewProps & React.RefAttributes<RN.ScrollView> = {
             ref: this._setNativeComponent,
             // Bug in react-native.d.ts.  style should be "style?: StyleProp<ScrollViewStyle>;" but instead is ViewStyle.
             style: this.props.style as any,

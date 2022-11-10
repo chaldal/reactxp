@@ -3,8 +3,8 @@
 */
 
 import _ = require('lodash');
-import RX = require('reactxp');
-import RXNetInfo, { Types as RXNetInfoTypes } from 'reactxp-netinfo';
+import RX = require('@chaldal/reactxp');
+import RXNetInfo, { Types as RXNetInfoTypes } from '@chaldal/reactxp-netinfo';
 
 import * as CommonStyles from '../CommonStyles';
 import { Test, TestType } from '../Test';

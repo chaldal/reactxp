@@ -3,7 +3,7 @@
 */
 
 import _ = require('lodash');
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 import { TestContainer } from './TestContainer';
 import { TestListView } from './TestListView';

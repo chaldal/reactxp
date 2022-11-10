@@ -47,6 +47,6 @@ export abstract class AccessibilityUtil {
     }
 
     protected abstract accessibilityLiveRegionToString(liveRegion: Types.AccessibilityLiveRegion): string | undefined;
-    protected abstract accessibilityTraitToString(trait: Types.AccessibilityTrait | Types.AccessibilityTrait[],
-        defaultTrait?: Types.AccessibilityTrait): string | string[] | undefined;
+    protected abstract accessibilityRoleToString(role: Types.AccessibilityRole,
+        defaultTrait?: Types.AccessibilityRole): string | undefined;
 }

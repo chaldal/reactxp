@@ -21,6 +21,7 @@ export interface AnimateListEditsProps {
     animateChildEnter?: boolean;
     animateChildLeave?: boolean;
     animateChildMove?: boolean;
+    children: React.ReactNode
 }
 
 export class AnimateListEdits extends React.Component<AnimateListEditsProps, Types.Stateless> {

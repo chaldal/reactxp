@@ -3,7 +3,7 @@
 * auto-validated.
 */
 
-import RX = require('reactxp');
+import RX = require('@chaldal/reactxp');
 
 import * as CommonStyles from '../CommonStyles';
 import { AutoExecutableTest, TestResult, TestType } from '../Test';
@@ -136,7 +136,7 @@ class ImageView extends RX.Component<RX.CommonProps, ImageViewState> {
             const width = this._image1Ref!.getNativeWidth();
             const height = this._image1Ref!.getNativeHeight();
             if (width == null || !approxEquals(width, image1ExpectedWidth / pixelRatio)) {
-                this._testResult.errors.push(`Expected width from getNativeWidth to be ${image1ExpectedWidth}. Got ${width}`);
+                this._testResult.errors.push(`Expected width from getNativeWidth to be ${image1ExpectedWidth}. Got ${width}, pixelRatio ${pixelRatio}`);
             }
             if (height == null || !approxEquals(height, image1ExpectedHeight / pixelRatio)) {
                 this._testResult.errors.push(`Expected height from getNativeHeight to be ${image1ExpectedHeight}. Got ${height}`);

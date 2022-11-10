@@ -12,6 +12,7 @@ import * as RN from 'react-native';
 
 import Easing from '../common/Easing';
 import * as RX from '../common/Interfaces';
+import { CommonProps } from '../common/Types';
 
 import RXImage from './Image';
 import RXText from './Text';
@@ -26,15 +27,15 @@ export interface AnimatedClasses {
 }
 
 export const CommonAnimatedClasses: AnimatedClasses = {
-    Image: RN.Animated.createAnimatedComponent(RXImage) as typeof RN.ReactNativeBaseComponent,
-    Text: RN.Animated.createAnimatedComponent(RXText) as typeof RN.ReactNativeBaseComponent,
-    TextInput: RN.Animated.createAnimatedComponent(RXTextInput) as typeof RN.ReactNativeBaseComponent,
-    View: RN.Animated.createAnimatedComponent(RXView)  as typeof RN.ReactNativeBaseComponent,
+    Image: RN.Animated.createAnimatedComponent(RXImage) as unknown as typeof RN.ReactNativeBaseComponent,
+    Text: RN.Animated.createAnimatedComponent(RXText) as unknown as typeof RN.ReactNativeBaseComponent,
+    TextInput: RN.Animated.createAnimatedComponent(RXTextInput) as unknown as typeof RN.ReactNativeBaseComponent,
+    View: RN.Animated.createAnimatedComponent(RXView)  as unknown as typeof RN.ReactNativeBaseComponent,
 };
 
 let animatedClasses: AnimatedClasses = CommonAnimatedClasses;
 
-class AnimatedWrapper<P, T, C> extends RX.AnimatedComponent<P, T, C> {
+class AnimatedWrapper<P extends CommonProps<C>, T, C> extends RX.AnimatedComponent<P, T, C> {
     protected _mountedComponent: RN.ReactNativeBaseComponent<any, any> | undefined;
 
     setNativeProps(props: P) {

@@ -30,9 +30,9 @@ export class Location extends RX.Location {
 
     // Get the current location of the user. This method returns a promise that either
     // resolves to the position or rejects with an error code.
-    getCurrentPosition(options?: PositionOptions): Promise<Position> {
+    getCurrentPosition(options?: PositionOptions): Promise<GeolocationPosition> {
         if (!this.isAvailable()) {
-            const error: PositionError = {
+            const error: GeolocationPositionError = {
                 code: RX.Types.LocationErrorType.PositionUnavailable,
                 message: 'Position unavailable because device does not support it.',
                 PERMISSION_DENIED: 0,
@@ -42,12 +42,12 @@ export class Location extends RX.Location {
             return Promise.reject(error);
         }
 
-        const deferred = new Defer<Position>();
+        const deferred = new Defer<GeolocationPosition>();
         let reportedError = false;
 
-        navigator.geolocation.getCurrentPosition((position: Position) => {
+        navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
             deferred.resolve(position);
-        }, (error: PositionError) => {
+        }, (error: GeolocationPositionError) => {
             // We need to protect against a known bug on some platforms where
             // a timeout error is reported after other types of errors (e.g.
             // the user hasn't granted access).
@@ -69,9 +69,9 @@ export class Location extends RX.Location {
             return Promise.reject<RX.Types.LocationWatchId>(RX.Types.LocationErrorType.PositionUnavailable);
         }
 
-        const watchId = navigator.geolocation.watchPosition((position: Position) => {
+        const watchId = navigator.geolocation.watchPosition((position: GeolocationPosition) => {
             successCallback(position);
-        }, (error: PositionError) => {
+        }, (error: GeolocationPositionError) => {
             if (errorCallback) {
                 errorCallback(error.code as RX.Types.LocationErrorType);
             }

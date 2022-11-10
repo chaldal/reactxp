@@ -8,8 +8,8 @@
  */
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
+import { createRoot } from 'react-dom/client';
 import { Types } from '../common/Interfaces';
 import Timers from '../common/utils/Timers';
 
@@ -29,6 +29,8 @@ export class FrontLayerViewManager {
     private _activePopupShowDelay = 0;
     private _popupShowDelayTimer: number | undefined;
     private _cachedPopups: PopupDescriptor[] = [];
+
+    private _root: any = undefined;
 
     // We need to be careful accessing document because it may not be defined
     // in some environments like Electron.
@@ -216,7 +218,13 @@ export class FrontLayerViewManager {
             ? rootView
             : this._contextWrapper(rootView);
 
-        ReactDOM.render(maybeContextWrappedRootView, container);
+        if (this._root === undefined) {
+            this._root = createRoot(container);
+        }
+
+        if (this._root !== undefined) {
+            this._root.render(maybeContextWrappedRootView);
+        }
     }
 
     isPopupDisplayed(popupId?: string): boolean {

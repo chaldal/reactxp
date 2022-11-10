@@ -49,7 +49,7 @@ export class FocusArbitratorProvider {
     constructor(view?: RX.View, arbitrator?: RX.Types.FocusArbitrator) {
         this._id = ++_lastFocusArbitratorProviderId;
         this._parentArbitratorProvider = view
-            ? ((view.context && view.context.focusArbitrator) || rootFocusArbitratorProvider)
+            ? ((view.context && (view.context as any).focusArbitrator) || rootFocusArbitratorProvider) // TODO: Remove `any` type, provide proper context type
             : undefined;
         this._arbitratorCallback = arbitrator;
     }
@@ -159,7 +159,7 @@ export class FocusArbitratorProvider {
         const focusArbitratorProvider: FocusArbitratorProvider =
             (((component as any)._focusArbitratorProvider instanceof FocusArbitratorProvider) &&
              (component as any)._focusArbitratorProvider) ||
-            (component.context && component.context.focusArbitrator) ||
+            (component.context && (component.context as any).focusArbitrator) || // TODO: Remove `any` type, provide proper context type
             rootFocusArbitratorProvider;
 
         focusArbitratorProvider._requestFocus(component, focus, isAvailable, type || FocusCandidateType.Focus);

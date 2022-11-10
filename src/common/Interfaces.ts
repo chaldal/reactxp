@@ -180,7 +180,7 @@ export abstract class Storage {
 export abstract class Location {
     abstract isAvailable(): boolean;
     abstract setConfiguration(config: LocationConfiguration): void;
-    abstract getCurrentPosition(options?: PositionOptions): Promise<Position>;
+    abstract getCurrentPosition(options?: PositionOptions): Promise<GeolocationPosition>;
     abstract watchPosition(successCallback: Types.LocationSuccessCallback, errorCallback?: Types.LocationFailureCallback,
         options?: PositionOptions): Promise<Types.LocationWatchId>;
     abstract clearWatch(watchID: Types.LocationWatchId): void;
