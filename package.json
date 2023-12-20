@@ -1,6 +1,6 @@
 {
   "name": "@chaldal/reactxp",
-  "version": "2.1.2",
+  "version": "2.2.0-rc.1",
   "description": "Cross-platform abstraction layer for writing React-based applications a single time that work identically across web, React Native, and Electron distribution",
   "author": "ReactXP Team <reactxp@microsoft.com>",
   "license": "MIT",
@@ -18,8 +18,9 @@
   },
   "peerDependencies": {
     "react": ">=18.1.0",
-    "react-dom": "18.1.0",
-    "react-native": "0.70.2"
+    "react-dom": "18.2.0",
+    "react-native": "0.73.1",
+    "@react-native-async-storage/async-storage": ">=1.21.0"
   },
   "devDependencies": {
     "@types/lodash": "4.14.149",
