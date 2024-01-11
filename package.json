@@ -1,6 +1,6 @@
 {
   "name": "@chaldal/reactxp",
-  "version": "2.2.0-rc.1",
+  "version": "2.2.0",
   "description": "Cross-platform abstraction layer for writing React-based applications a single time that work identically across web, React Native, and Electron distribution",
   "author": "ReactXP Team <reactxp@microsoft.com>",
   "license": "MIT",
@@ -19,7 +19,7 @@
   "peerDependencies": {
     "react": ">=18.1.0",
     "react-dom": "18.2.0",
-    "react-native": "0.73.1",
+    "react-native": "0.73.2",
     "@react-native-async-storage/async-storage": ">=1.21.0"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "eslint-config-skype": "1.5.0",
     "eslint-plugin-import": "2.19.1",
     "eslint-plugin-react": "7.17.0",
-    "react": "18.1.0",
+    "react": "18.2.0",
     "tslint": "5.20.1",
     "tsutils": "3.17.1",
     "typescript": "4.8.4"
