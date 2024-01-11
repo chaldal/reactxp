@@ -1,9 +1,9 @@
 # @Chaldal/ReactXP
 
 
-## This is a forked version of original ReactXP. 
-## It supports latest react-native 0.70. Issues/PR's are welcome.
-## Current version 2.1.2
+## This is a forked version of original ReactXP.
+## It supports latest react-native 0.73.1 Issues/PR's are welcome.
+## Current version 2.2.0
 
 ReactXP and reactXP extentions are hosted on NPM under `@Chaldal` organization.
 https://www.npmjs.com/org/chaldal
